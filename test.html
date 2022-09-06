@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* css画三角形 */
+    .a {
+      width: 0;
+      height: 0;
+      /* border-style: solid;
+      border-width: 100px; */
+      border: 100px solid;
+      border-top: none;
+      border-color: transparent transparent darkblue transparent;
+      /* transform: rotate(90deg); */
+    }
+
+    /* css实现一个div向右平移100px的动画 */
+    @keyframes b {
+      0% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(100px);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+    .b {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      background-color: pink;
+      animation: b 3s infinite;
+      transition: all linear;
+    }
+
+
+    /* 宽高比1/2页面自适应矩形 */
+    .c {
+      width: 20%;
+      padding-bottom: 40%;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="a"></div>
+  <div class="b"></div>
+  <div class="c"></div>
+  <script>
+    // 1.转换数据结构
+    // function dataTypeChange(obj) {
+    //   let result = Array(12).fill(null)
+    //   if(obj instanceof Object) {
+    //     Object.keys(obj).forEach(item => {
+    //       result[item - 1] = obj[item] 
+    //     })
+    //     return result
+    //   } else {
+    //     return obj
+    //   }
+    // }
+    // let obj = {
+    //   1: 222,
+    //   2: 123,
+    //   5: 888
+    // }
+    // console.log(dataTypeChange(obj))
+
+
+    // 2.请实现这样一个函数，输入参数为一个长度为2n的整数数组，以两个整数一组的方式将数据分组，
+    //      并使每组数组最小值相加为最大,输出这个最大值。
+    // 输入[1,4,3,2],输出为4
+    // 输入[1,5,7,9,4,12],输出为15
+    // function maxAddNum(arr) {
+    //   arr.sort((a, b) => {
+    //     return a - b
+    //   })
+    //   let sum = 0
+    //   for(let i = 0; i < arr.length; i = i + 2) {
+    //     sum += arr[i]
+    //   }
+    //   return sum
+    // }
+    // console.log(maxAddNum([1,4,3,2]))
+    // console.log(maxAddNum([1,5,7,9,4,12]))
+
+
+    //3.Promise解决回调地狱问题
+    // let promise = new Promise(resolve => {
+    //   setTimeout(() => {
+    //     resolve(1)
+    //   }, 1000);
+    // })
+    // promise.then(res => {
+    //   console.log(res)
+    //   return new Promise(resolve => {
+    //     setTimeout(() => {
+    //       resolve(2)
+    //     }, 1000);
+    //   })
+    // }).then(res => {
+    //   console.log(res)
+    // })
+
+
+    //4.闭包
+    // for (var i = 1; i <= 5; i++) {
+    //   setTimeout(function timer() {
+    //     console.log(i);
+    //   }, i * 1000);
+    // }
+    // for (let i = 1; i <= 5; i++) {
+    //   setTimeout(function timer() {
+    //     console.log(i);
+    //   }, i * 1000);
+    // }
+    // for (var i = 1; i <= 5; i++) {
+    //   (function(i) {
+    //     setTimeout(function timer() {
+    //       console.log(i);
+    //     }, i * 1000);
+    //   })(i)
+    // }
+    // for (var i = 1; i <= 5; i++) {
+    //   setTimeout(function timer(i) {
+    //     console.log(i);
+    //   }, i * 1000, i);
+    // }
+
+
+    //5.冒泡排序、快速排序、插入排序
+    // 冒泡排序
+    // function bubble(arr) {
+    //   for(let i = 0; i < arr.length; i++) {
+    //     for(let j = 0; j < arr.length - i - 1; j++) {
+    //       if(arr[j] > arr[j + 1]) {
+    //         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+    //       }
+    //     }
+    //   }
+    //   return arr
+    // }
+    // console.log(bubble([4, 1, 5, 13, 6, 2, 12]))
+
+    //快速排序:取中间值，每个值与中间值相比，小的放左边数组，大的放右边数组
+    // function quick(arr) {
+    //   if(arr.length <= 1) {
+    //     return arr
+    //   }
+    //   let midIndex = arr.length / 2
+    //   let midValue = arr.splice(midIndex, 1)[0]
+    //   const leftArr = []
+    //   const rightArr = []
+    //   for(let i = 0; i < arr.length; i++) {
+    //     arr[i] < midValue ? leftArr.push(arr[i]) : rightArr.push(arr[i])
+    //   }
+    //   return quick(leftArr).concat(midValue, quick(rightArr))
+    // }
+    // console.log(quick([4, 1, 5, 13, 6, 2, 12]))
+
+
+    //插入排序: 抓牌
+    // function insert(arr) {
+    //   let result = [arr[0]]
+    //   for(let i = 1; i < arr.length; i++) {
+    //     for(let j = result.length - 1; j >= 0; j--) {
+    //       if(arr[i] > result[j]) {
+    //         result.splice(j + 1, 0, arr[i])
+    //         break
+    //       }
+    //       if(j === 0) {
+    //         result.unshift(arr[i])
+    //       }
+    //     }
+    //   }
+    //   return result
+    // }
+    // console.log(insert([4, 1, 5, 13, 6, 2, 12]))
+
+
+    //6.实现一个sleep函数
+    // function sleep(time) {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       console.log('sleep函数执行了')
+    //     }, time)
+    //   })
+    // }
+    // console.log(sleep(3000))
+
+
+    //7.斐波那契数列
+    // function recurFib(n) {
+    //   const demo = [1, 1]
+    //   for(let i = 2; i < n; i++) {
+    //     demo[i] = demo[i - 1] + demo[i - 2]
+    //   }
+    //   return demo[n - 1]
+    // }
+    // console.log(recurFib(8))
+
+
+    //8.this指向
+    // window.val = 1
+    // var json = {
+    //   val: 10,
+    //   dbl: function() {
+    //     this.val *= 2
+    //   }
+    // }
+    // json.dbl()
+    // console.log(json.val) //20
+    // var dbl = json.dbl
+    // dbl()
+    // console.log(window.val) //2
+    // json.dbl.call(window)
+    // console.log(window.val) //4
+    // console.log(json.val)
+    // console.log(window.val + json.val) //24
+
+
+    //9.实现深拷贝
+    // function deepClone(target, map = new Map()) {
+    //   if(typeof target === 'object' && target !== null) {
+    //     if(map.has(target)) {
+    //       return map.get(target)
+    //     }
+    //     let result = Array.isArray(target) ? [] : {}
+    //     map.set(target, result)
+    //     if(Array.isArray(target)) {
+    //       target.forEach((item, index) => {
+    //         result[index] = deepClone(item, map)
+    //       })
+    //     } else {
+    //       Object.keys(target).forEach(key => {
+    //         result[key] = deepClone(target[key], map)
+    //       })
+    //     }
+    //     return result
+    //   } else {
+    //     return target
+    //   }
+    // }
+    // const obj = {
+    //   a: 1,
+    //   b: 2,
+    //   c: [1, 2, 3],
+    //   d: function() {
+    //     console.log('111')
+    //   }
+    // }
+    // let result = deepClone(obj)
+    // console.log(result)
+
+
+    //10.函数节流
+    // function throttle(callback, wait) {
+    //   let start = 0
+    //   return function(e) {
+    //     let now = Date.now()
+    //     if(now - start >= wait) {
+    //       callback.call(this, e)
+    //       start = now
+    //     }
+    //   }
+    // }
+    // function throttle(callback, wait) {
+    //   let timer
+    //   return function(e) {
+    //     if(!timer) {
+    //       timer = setTimeout(() => {
+    //         timer = null
+    //         callback.call(this, e)
+    //       }, wait) 
+    //     }
+    //   }
+    // }
+    // window.addEventListener('scroll', throttle(function(e) {
+    //   console.log(e)
+    // }), 2000)
+
+
+    //11.函数防抖
+    // function debounce(callback, wait) {
+    //   let timer = null
+    //   return function(e) {
+    //     if(timer) {
+    //       clearTimeout(timer)
+    //     }
+    //     timer = setTimeout(() => {
+    //       callback.call(this, e)
+    //     }, wait)
+    //   }
+    // }
+
+
+    //12.数组去重
+    // function unique(arr) {
+    //   const result = []
+    //   arr.forEach(item => {
+    //     if(result.indexOf(item) == -1) {
+    //       result.push(item)
+    //     }
+    //   })
+    //   return result
+    // }
+    // function unique(arr) {
+    //   const result = []
+    //   const obj = {}
+    //   arr.forEach(item => {
+    //     if(obj[item] == undefined) {
+    //       result.push(item)
+    //       obj[item] = true
+    //     }
+    //   })
+    //   return result
+    // }
+    // function unique(arr) {
+    //   return [...new Set(arr)]
+    // }
+    // console.log(unique([1, 2, 4, 4, 4, 6, 6, 7]))
+
+
+    //13.数组扁平化
+    // function flattern(arr) {
+    //   const result = []
+    //   arr.forEach(item => {
+    //     if(Array.isArray(item)) {
+    //       result = result.concat(flattern(item))
+    //     } else {
+    //       result.push(item)
+    //     }
+    //   })
+    //   return result
+    // }
+    // function flattern(arr) {
+    //   let result = [...arr]
+    //   while(result.some(item => Array.isArray(item))) {
+    //     result = [].concat(...result)
+    //   }
+    //   return result
+    // }
+    // console.log(flattern([2, 3, [4, 5], [6, [7, 1]], 8]))
+
+    //14.继承：子类继承父类中的属性和方法
+    //原型继承：让父类中的属性和方法在子类实例的原型链上
+    //特点：父类私有的和公有的都是子类实例的公有属性方法
+    // function A(x) {
+    //   this.x = x
+    // }
+    // A.prototype.getX = function() {
+    //   console.log(this.x)
+    // }
+    // function B(y) {
+    //   this.y = y
+    // }
+    // B.prototype = new A(100)
+    // B.prototype.constructor = B
+    // B.prototype.getY = function() {
+    //   console.log(this.y)
+    // }
+    // let b = new B(200)
+    // console.log(b.y) //200
+    // b.getX() //100
+
+    //call继承：只能继承父类私有的属性或者方法  A.call(this, 100)
+    // function A(x) {
+    //   this.x = x
+    // }
+    // A.prototype.getX = function() {
+    //   console.log(this.x)
+    // }
+    // function B(y) {
+    //   A.call(this, 100)
+    //   this.y = y
+    // }
+    // B.prototype.getY = function() {
+    //   console.log(this.y)
+    // }
+    // let b = new B(200)
+    // console.log(b.y) //200
+    // console.log(b.x) //100
+
+    //寄生组合继承: call继承 + 类似于原型继承
+    //特点：父类私有的和公有的分别是子类实例的私有和公有属性方法
+    // function A(x) {
+    //   this.x = x
+    // }
+    // A.prototype.getX = function() {
+    //   console.log(this.x)
+    // }
+    // function B(y) {
+    //   A.call(this, 100)
+    //   this.y = y
+    // }
+    // B.prototype = Object.create(A.prototype)
+    // B.prototype.constructor = B
+    // B.prototype.getY = function() {
+    //   console.log(this.y)
+    // }
+    // let b = new B(200)
+    // console.log(b.x) //100
+    // b.getY() //200
+
+    //ES6继承
+    // class A {
+    //   constructor(x) {
+    //     this.x = x
+    //   }
+    //   getX() {
+    //     console.log(this.x)
+    //   }
+    // }
+    // class B extends A {
+    //   constructor(y) {
+    //     super()
+    //     this.y = y
+    //   }
+    //   getY() {
+    //     console.log(this.y)
+    //   }
+    // }
+
+
+    //15.最长无重复字符串
+    // function getMaxLength(str) {
+    //   const map = new Map()
+    //   let maxLength = 1
+    //   let j = 0
+    //   for(let i = 0; i < str.length; i++) {
+    //     if(!map.has(str[i])) {
+    //       map.set(str[i])
+    //       maxLength = Math.max(maxLength, map.size)
+    //     } else {
+    //       while(map.has(str[i])) {
+    //         map.delete(str[j])
+    //         j++
+    //       }
+    //       map.set(str[i])
+    //     }
+    //   }
+    //   return maxLength
+    // }
+    // console.log(getMaxLength('sajjisnjbuck'))
+
+
+    //16.最长回文子串
+    // function longestPalindrome(str) {
+    //   let start = 0
+    //   let maxLength = 1
+    //   function expandAroundCenter(left, right) {
+    //     while(left >= 0 && right < str.length && str[left] === str[right]) {
+    //       if(right - left + 1 > maxLength) {
+    //         maxLength = right - left + 1
+    //         start = left 
+    //       }
+    //       left--
+    //       right++
+    //     }  
+    //   }
+    //   for(let i = 0; i < str.length; i++) {
+    //     expandAroundCenter(i - 1, i + 1)
+    //     expandAroundCenter(i, i + 1)
+    //   }
+    //   return str.substring(start, start + maxLength)
+    // }
+    // console.log(longestPalindrome('cddcsaaaaaass'))
+
+
+    //17.全排列
+    // function permute(arr) {
+    //   let result = []
+    //   let path = []
+    //   dfs(path)
+    //   function dfs(path) {
+    //     if(path.length === arr.length) {
+    //       result.push([...path])
+    //       return
+    //     }
+    //     for(let i = 0; i < arr.length; i++) {
+    //       if(path.includes(arr[i])) {
+    //         continue
+    //       }
+    //       path.push(arr[i])
+    //       dfs(path)
+    //       path.pop()
+    //     }
+    //   }
+    //   return result
+    // }
+    // console.log(permute([1, 2, 3, 4]))
+
+
+    //18.轮转数组
+    //方法一
+    // function rotate(nums, k) {
+    //   const result = []
+    //   const len = nums.length
+    //   for(let i = 0; i < len; i++) {
+    //     result[(i + k) % len] = nums[i]
+    //   }
+    //   return result
+    // }
+
+    //方法二
+    // function rotate(nums, k) {
+    //   let len = nums.length
+    //   function reverse(nums, left, right) {
+    //     while(left < right) {
+    //       [nums[left], nums[right]] = [nums[right], nums[left]]
+    //       left++
+    //       right--
+    //     }
+    //     return nums
+    //   }
+    //   k %= len
+    //   nums = reverse(nums, 0, len - 1)
+    //   nums = reverse(nums, 0, k - 1)
+    //   return reverse(nums, k, len - 1)
+    // }
+    // console.log(rotate([1, 2, 3, 4, 5, 6], 5))
+
+
+    // 19.原生Ajax实现
+    // let xhr = new XHRHttpRequest()
+    // xhr.open('get', url)
+    // xhr.onreadystatechange = function() {
+    //   if(xhr.status == 200 && xhr.readystate == 4) {
+    //     let result = xhr.responseText
+    //   }
+    // }
+    // xhr.send()
+
+
+    //20.解析url
+    // function parseUrl(url) {
+    //   let res = url.split('?')
+    //   let params = res[1].split('&')
+    //   let obj = {}
+    //   for(let i=0; i<params.length; i++) {
+    //     let item = params[i].split('=')
+    //     if(obj[item[0]] == undefined) {
+    //       obj[item[0]] = item[1]
+    //     } else {
+    //       obj[item[0]] = [].concat(obj[item[0]], item[1])
+    //     }
+    //   }
+    //   return obj
+    // } 
+    // console.log(parseUrl('http://www.qq.com?age=18&name=zzt&gender=male&score=99&score=100'))
+
+
+    // 21.大数相加
+    // function getBigNum(str1, str2) {
+    //   let len = Math.max(str1.length, str2.length)
+    //   str1 = str1.padStart(len, 0)
+    //   str2 = str2.padStart(len, 0)
+    //   let c = 0
+    //   let res = ''
+    //   for(let i = len - 1; i >= 0; i--) {
+    //     let temp = parseInt(str1[i]) + parseInt(str2[i]) + c
+    //     c = Math.floor(temp / 10)
+    //     temp %= 10
+    //     res = temp + res
+    //   }
+    //   if(c == 1) res = '1' + res
+    //   return res
+    // }
+    // console.log(getBigNum('2323262537257', '02002332327724000000000'))
+
+
+    // 22.设计模式
+    /*
+     * 单例设计模式:把描述当前事务特征的信息进行分组归类（减少全局变量的污染）
+     * beautifulGirl不只被叫做变量（对象名），也被称为命名空间
+     */
+    // let beautifulGirl = {
+    //   name: '小小',
+    //   gender: '女',
+    //   age: 18
+    // }
+
+    // 工厂模式:批量化生产：把实现某个功能的代码进行封装，后期再想实现这个功能，我们直接执行这个函数即可
+    // function createPerson(name, age) {
+    //   let person = {}
+    //   person.name = name
+    //   person.age = age
+    //   return person
+    // }
+    // let beautifulGirl = createPerson('小小', 18)
+    
+
+  //   const list = [
+  //     { id: 1, name: '司令', pid: 0 },
+  //     { id: 2, name: '军长', pid: 1 },
+  //     { id: 3, name: '副军长', pid: 1 },
+  //     { id: 4, name: '旅长', pid: 3 },
+  //     { id: 5, name: '团长', pid: 4 }
+  //   ]
+  //   function arrToTree(list) {
+  //     // 定义最终需要返回的树形结构数据
+  //     let treeData = []
+  //     // 对传入的数组进行遍历
+  //     list.forEach(item => {
+  //       // 如果pid没有值,那就是顶级对象,直接添加进数组
+  //       if (!item.pid) {
+  //         treeData.push(item)
+  //       }
+  //       // 理解为二次遍历 ：每个对象都找一遍自己的孩子添加到children
+  //       let objList = list.filter(data => data.pid === item.id)
+  //       if (objList.length) {
+  //         item.children = objList
+  //       }
+  //     })
+  //     return treeData
+  //   }
+  //   const treeData = arrToTree(list)
+  //   console.log(treeData);
+
+  // 使用 Javascript 打印出 1-10000 之间的所有对称数(例如 121、1331 等)
+  // function duichengNum() {
+  //   for(let i = 1; i <= 10000; i++) {
+  //     if(i.toString() == i.toString().split('').reverse().join('')) {
+  //       console.log(i)
+  //     }
+  //   }
+  // }
+  // duichengNum()
+
+  // 统计字符串”aaaabbbccccddfgh”中字母个数或统计最多字母数
+  // function getMaxNum(str) {
+  //   const map = new Map()
+  //   for(let i = 0; i < str.length; i++) {
+  //     let asc = str.charCodeAt(str[i])
+  //     if((asc >= 65 && asc <= 90) || (asc >= 97 && asc <= 122)) {
+  //       if(map.has(str[i])) {
+  //         map.set(str[i], map.get(str[i]) + 1)
+  //       } else {
+  //         map.set(str[i], 1)
+  //       }
+  //     }
+  //   }
+  //   let max = 1
+  //   let arr = []
+  //   for(const [a, b] of map) {
+  //     max = Math.max(max, b)
+  //   }
+  //   for(const [a, b] of map) {
+  //     if(b == max) {
+  //       arr.push(a)
+  //     }
+  //   }
+  //   for(let i = 0; i < arr.length; i++) {
+  //     console.log(arr[i])
+  //   }
+  // }
+  // getMaxNum('aaaabbbccccddfgh')
+
+  //ES6实现一个形状类和它的继承类正方形类，求面积和周长
+  // class Shape {
+  //   constructor(size) {
+  //     this.size = size
+  //   }
+  // }
+  // class Square extends Shape {
+  //   constructor(size) {
+  //     super(size)
+  //   }
+  //   getArea() {
+  //     return this.size * this.size
+  //   }
+  //   getZhouchang() {
+  //     return this.size * 4
+  //   }
+  // }
+  // let p = new Square(10)
+  // p.getArea()
+  // p.getZhouchang()
+
+
+  // async function sleep(color, wait){
+  //   return new Promise((resolve, reject)=>{
+  //     console.log(color)
+  //     setTimeout(() => {
+  //       resolve()
+  //     }, wait);
+  //   })
+  // }
+  // async function light(){
+  //   await sleep('green', 1000)
+  //   await sleep('yellow', 2000)
+  //   await sleep('red', 3000)
+  //   await light()
+  // }
+  // light()
+  </script>
+</body>
+
+</html>
